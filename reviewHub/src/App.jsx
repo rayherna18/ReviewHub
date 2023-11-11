@@ -1,34 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import './App.css';
+import { supabase } from './client';
+import { Link, BrowserRouter as Router, useRoutes } from 'react-router-dom';
+import CreateReview from './pages/CreateReview';
+import ReadReviews from './pages/ReadReviews';
+import EditReview from './pages/EditReview';
+import DetailedReview from './pages/DetailedReview';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [reviews, setReviews] = useState([])
+
+  useEffect(() => {
+    async function fetchReviews() {
+      const { data } = await supabase
+        .from('reviews')
+        .select()
+        .order('created_at', { ascending: true });
+
+      // Update the state of characters
+      setReviews(data);
+    }
+
+    fetchReviews();
+  }, []);
+
+  const routes = useRoutes([
+    {
+      path: '/reviews/:id',
+      element: <DetailedReview data={reviews} />,
+    },
+    {
+      path: '/new',
+      element: <CreateReview setReviews={setReviews} />,
+    },
+    {
+      path: '/edit/:id',
+     element: <EditReview data={reviews} />,
+    },
+    {
+      path: '/',
+      element: <ReadReviews data={reviews} />,
+    },
+  ]);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className='reviewApp'>
+      <div className='reviewApp-header'>
+        <h2>ReviewHub</h2>
+        <Link to='/'  className='headerLink'>Home</Link>
+        <Link to='/new' className='headerLink'>Add Review</Link>
+        </div>
+        {routes}
+    </div>
   )
 }
 
