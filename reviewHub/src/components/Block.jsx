@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Block.css';
+import '../App.css';
 
 const Block = (props) => {
   const formattedDate = new Date(props.created_at).toLocaleString('en-US', {

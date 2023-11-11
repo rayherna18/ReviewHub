@@ -48,8 +48,8 @@ function App() {
     <div className='reviewApp'>
       <div className='reviewApp-nav'>
         <h2>ReviewHub</h2>
-        <Link to='/'  className='headerLink'>Home</Link>
-        <Link to='/new' className='headerLink'>Add Review</Link>
+        <Link to='/'  className='headerLink'><h2>Home</h2></Link>
+        <Link to='/new' className='headerLink'><h2>Add Review</h2></Link>
         </div>
         {routes}
     </div>

@@ -1,12 +1,15 @@
 .block
 {
-    width: 1200px;
-    height: 150px;
+    text-align: left;
+
+    width: 75%;
+    height: auto;
     border-radius: 20px;
     padding: 30px;
     background-color: #1f1f1f;
     color: rgb(255, 255, 255);
-    margin:20px;
-
-    text-align:left;
+    
+    margin: auto;
+    margin-bottom: 40px;
 }
+

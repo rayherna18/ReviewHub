@@ -11,7 +11,11 @@ const ReadReviews = (props) => {
 
     return (
         <div className='readPage'>
-            <h2>Catalogue</h2>
+            <div id='filterRow'>
+                <h2 >Filter by</h2>
+                <button className='filterButton'>Date</button>
+                <button className='filterButton'>Upvotes</button>
+            </div>
             {reviews && reviews.length > 0 ? (
                 reviews.map((review) => (
                     <Block

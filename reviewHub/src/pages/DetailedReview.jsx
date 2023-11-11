@@ -26,6 +26,10 @@ function DetailedReview({ data }) {
             <div id='bottomRowDetailed'>
                 <img src="https://i.ibb.co/9qcxQZC/15-151233-dale-like-png-purple-like-button-png-removebg-preview.png" className='detailedIcon'></img>
             </div>
+
+            <div id='commentSection'>
+                
+            </div>
         </div>
     )
 }

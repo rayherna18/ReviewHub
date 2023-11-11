@@ -38,7 +38,7 @@ const CreateReview = () => {
                 <br /><br />
                 <label htmlFor='content' className='labelTxt'>Content</label>
                 <br />
-                <textarea rows="10" cols="100" id='contentInput' name='content' value={review.content} onChange={(e) => setReview({ ...review, content: e.target.value })} />
+                <textarea rows="10" cols="130" id='contentInput' name='content' value={review.content} onChange={(e) => setReview({ ...review, content: e.target.value })} />
                 <br /><br />
                 <label htmlFor='image_url' className='labelTxt'>Image URL</label><br />
                 <input className='additionalInputs' name='image_url' value={review.image_url} onChange={(e) => setReview({ ...review, image_url: e.target.value })} />
