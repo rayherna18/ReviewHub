@@ -16,17 +16,41 @@
 .detailedPage {
   text-align: left;
 
-  width: 1200px;
+  width: 75%;
   height: auto;
   border-radius: 20px;
   padding: 30px;
   background-color: #1f1f1f;
   color: rgb(255, 255, 255);
-  margin: 20px;
+  
+  margin: auto;
+  margin-top: 40px;
 }
 
 #topRowDetailed
 {
   display: flex;
   justify-content: space-between;
+}
+
+.detailedIcon
+{
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+#flagContainer
+{
+    text-align: center;
+    border-radius: 40px;
+    width: 100px;
+    background-color: rgb(10, 206, 26);
+}
+
+#flagTxt
+{
+    font-size: 1.2em;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
 }

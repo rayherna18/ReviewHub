@@ -46,7 +46,7 @@ function App() {
 
   return (
     <div className='reviewApp'>
-      <div className='reviewApp-header'>
+      <div className='reviewApp-nav'>
         <h2>ReviewHub</h2>
         <Link to='/'  className='headerLink'>Home</Link>
         <Link to='/new' className='headerLink'>Add Review</Link>
