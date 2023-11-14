@@ -40,12 +40,20 @@
     margin-right: 10px;
 }
 
-#flagContainer
+.raveContainer
 {
     text-align: center;
     border-radius: 40px;
     width: 100px;
     background-color: rgb(10, 206, 26);
+}
+
+.rantContainer
+{
+    text-align: center;
+    border-radius: 40px;
+    width: 100px;
+    background-color: rgb(206, 10, 10);
 }
 
 #flagTxt

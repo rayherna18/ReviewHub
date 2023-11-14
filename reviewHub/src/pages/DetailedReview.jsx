@@ -5,18 +5,29 @@ import './DetailedReview.css';
 function DetailedReview({ data }) {
     const { id } = useParams();
     const reviewId = parseInt(id);
+    const [isRant, setIsRant] = useState(false);
 
     const review = data.find((review) => review.id === reviewId);
+
+    useEffect(() => {
+        if (review) {
+            if (review.flag === 'rant') {
+                setIsRant(true);
+            }
+        }
+    }, [review])
 
     if (!review) {
         return <h2>Review not found</h2>;
     }
 
+
+
     return (
         <div className='detailedPage'>
             <div id='topRowDetailed'>
                 <h6>Posted on {review.created_at}</h6>
-                <div id='flagContainer'>
+                <div className={isRant ? 'rantContainer' : 'raveContainer'}>
                     <p id='flagTxt'>{review.flag}</p>
                 </div>
             </div>
