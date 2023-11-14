@@ -19,27 +19,27 @@ function DetailedReview({ data, onUpdateReview }) {
 
   const increaseUpvote = async () => {
     try {
-      const { data: updatedReview, error } = await supabase
-        .from('reviews')
-        .update({ upvotes: review.upvotes + 1 })
-        .eq('id', reviewId)
-        .single();
-
-      if (error) {
+        // Increment upvotes locally
+        setUpvotes((prevUpvotes) => prevUpvotes + 1);
+    
+        // Update upvotes in the Supabase database
+        const { data: updatedReview, error } = await supabase
+          .from('reviews')
+          .update({ upvotes: review.upvotes + 1 })
+          .eq('id', reviewId)
+          .single();
+    
+        if (error) {
+          console.error('Error updating upvotes in the database:', error);
+          return;
+        }
+    
+        // Notify the parent component to update the review data
+        onUpdateReview(reviewId);
+      } catch (error) {
         console.error('Error updating upvotes:', error);
-        return;
       }
-
-      setUpvotes(updatedReview.upvotes);
-
-      // Notify the parent component to update the review data
-      onUpdateReview(reviewId);
-
-      // Navigate to the same detailed review page using navigate
-      navigate(`/detailed/${reviewId}`);
-    } catch (error) {
-      console.error('Error updating upvotes:', error);
-    }
+    
   };
 
   const routes = useRoutes([
@@ -84,13 +84,15 @@ function DetailedReview({ data, onUpdateReview }) {
       <p>{review.content}</p>
       <img src={review.image_url} alt={review.title} id="detailedImage" />
       <div id="bottomRowDetailed">
+        <div id='upvoteRow'>
         <img
           src="https://i.ibb.co/9qcxQZC/15-151233-dale-like-png-purple-like-button-png-removebg-preview.png"
           className="detailedIcon"
           alt="like"
           onClick={increaseUpvote}
         />
-        <p>{upvotes}</p>
+        <p id='upvoteTxt'>{upvotes}</p>
+        </div>
         <div id="alterButtons">
           <Link to={`/edit/${reviewId}`}>
             <button className="alterButton">

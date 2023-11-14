@@ -6,6 +6,7 @@
   
 }
 
+
 #detailedTitle
 {
   font-size: 2em;
@@ -45,6 +46,13 @@
 .detailedIcon:hover
 {
     cursor: pointer;
+    transform: scale(1.1);
+}
+
+.detailedIcon:active
+{
+    transform: scale(1.2);
+
 }
 
 .raveContainer
@@ -97,4 +105,17 @@
   transition: border-color 0.25s;
   margin-left: 10px;
   margin-bottom: 10px;
+}
+
+#upvoteRow
+{
+  display: flex;
+  flex-direction: row;
+  align-self: start;
+}
+
+#upvoteTxt
+{
+  font-size: 1.2em;
+  font-weight: 500;
 }
