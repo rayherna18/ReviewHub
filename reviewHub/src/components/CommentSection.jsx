@@ -1,11 +1,75 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { supabase } from '../client';
+import Comment from './Comment'; // Import the Comment component
 import './CommentSection.css';
 
-const CommentSection = () => {
-    <div className='commentsContainer'>
-        
-    </div>
-}
+const CommentSection = ({ reviewId }) => {
+    const [comments, setComments] = useState([]);
+    const [currentComment, setCurrentComment] = useState({
+        content: '',
+        user_id: '', // Consider updating this based on your authentication system
+        related_post: null,
+    });
+
+    useEffect(() => {
+        async function fetchComments() {
+            const { data } = await supabase
+                .from('comments')
+                .select()
+                .eq('related_post', reviewId) // Filter comments by related_post
+                .order('created_at', { ascending: true });
+
+            setComments(data);
+        }
+
+        fetchComments();
+    }, [reviewId]);
+
+    const createComment = async (e) => {
+        e.preventDefault();
+        try {
+            await supabase
+                .from('comments')
+                .insert([
+                    { content: currentComment.content, user_id: currentComment.user_id, related_post: reviewId },
+                ])
+                .select();
+
+                history.push(`/reviews/${reviewId}`);
+        } catch (error) {
+            console.error("Error creating comment: ", error);
+        }
+        window.location.href = `/reviews/${reviewId}`;
+    };
+
+    return (
+        <div className='commentsContainer'>
+            <div className='pastComments'>
+                {comments && comments.length > 0 ? (
+                    comments.map((comment) => (
+                        <Comment
+                            key={comment.id}
+                            content={comment.content}
+                            user_id={comment.user_id}
+                            related_post={comment.related_post}
+                        />
+                    ))
+                ) : (
+                    <h2 id='nullComments'>{'No Comments Yet!'}</h2>
+                )}
+            </div>
+            <div className='newComment'>
+                <input
+                    type='text'
+                    placeholder='Leave a comment'
+                    id='commentInput'
+                    value={currentComment.content}
+                    onChange={(e) => setCurrentComment({ ...currentComment, content: e.target.value })}
+                ></input>
+                <button className='commentButton' onClick={createComment}>{'Post'}</button>
+            </div>
+        </div>
+    );
+};
 
 export default CommentSection;

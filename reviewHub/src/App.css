@@ -8,12 +8,45 @@
   color: #1f1f1f;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 20px;
 }
 .createPage {
   display: flex;
   justify-content: center;
+}
+
+.headerAssets
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  margin-right: 20px;
+
+}
+
+h5.headerAssets, h2.headerAssets
+{
+  color: #dfdfdf;
+  margin: 0;
+  margin-left: 10px
+}
+
+input.headerAssets
+{
+  width: 20%;
+  height: auto;
+  border-radius: 20px;
+  background-color: rgb(230, 230, 230);
+  padding: 20px;
+  font-size: 1.2em;
+  font-weight: 500;
+  margin: 0;
+  margin-left: 10px;
+  margin-top: -5px;
+  color: #161616;
 }
 
 

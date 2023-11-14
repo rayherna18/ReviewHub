@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from '../client';
 
-const CreateReview = () => {
+const CreateReview = ({userId}) => {
 
     const [review, setReview] = useState({
         title: '',
@@ -9,7 +9,8 @@ const CreateReview = () => {
         image_url: '',
         flag: '',
         upvotes: 0,
-        secret_key: null,
+        secret_key: 0,
+        user_id: userId,
     });
 
     const createReview = async (e) => {
@@ -18,7 +19,7 @@ const CreateReview = () => {
             await supabase
                 .from('reviews')
                 .insert([
-                    {title: review.title, content: review.content, image_url: review.image_url, flag: review.flag, upvotes: review.upvotes, secret_key: review.secret_key }
+                    {title: review.title, content: review.content, image_url: review.image_url, flag: review.flag, upvotes: review.upvotes, secret_key: review.secret_key, user_id: review.user_id}
                 ])
                 .select();
         }

@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { supabase } from '../client';
 
 const EditReview = () => {
-
     const { id } = useParams();
     const [review, setReview] = useState(null);
 
@@ -14,7 +13,6 @@ const EditReview = () => {
     const [newSecretKey, setNewSecretKey] = useState(null);
 
     useEffect(() => {
-        // Fetch the post data using id
         const fetchData = async () => {
             const { data, error } = await supabase
                 .from('reviews')
@@ -40,14 +38,13 @@ const EditReview = () => {
         fetchData();
     }, [id]);
 
-    if(!review) {
+    if (!review) {
         return <div>Loading...</div>;
     }
 
     const updateReview = async (event) => {
         event.preventDefault();
 
-        // Collect the new values from the form inputs
         const updatedReview = {
             title: newTitle,
             content: newContent,
@@ -56,7 +53,6 @@ const EditReview = () => {
             secret_key: newSecretKey,
         };
 
-        // Update the post in the Supabase database
         const { data, error } = await supabase
             .from('reviews')
             .update(updatedReview)
@@ -74,7 +70,7 @@ const EditReview = () => {
 
     return(
         <div className='createPage'>
-            <form onSubmit={createReview} className='reviewForm'>
+            <form onSubmit={updateReview} className='reviewForm'>
                 <h2>Create Review</h2>
                 <label htmlFor='title' className='labelTxt'>Title</label>
                 <br />

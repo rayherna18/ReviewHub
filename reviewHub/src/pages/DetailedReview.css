@@ -3,6 +3,7 @@
   width: 800px;
   height: auto;
   border-radius: 20px;
+  
 }
 
 #detailedTitle
@@ -38,6 +39,7 @@
     width: 40px;
     height: 40px;
     margin-right: 10px;
+    margin-top: 10px;
 }
 
 .raveContainer
@@ -61,4 +63,33 @@
     font-size: 1.2em;
     font-weight: 500;
     color: rgb(255, 255, 255);
+}
+
+#roundedDivider
+{
+  border-top: 1px solid rgb(255, 255, 255);
+  border-radius: 10px;
+  width: 90%;
+}
+
+#bottomRowDetailed
+{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.alterButton
+{
+  border-radius: 50px;
+  border: 2px solid transparent;
+  padding: 1em 1.5em;
+  font-size: 15px;
+  font-family: inherit;
+  background-color: #303030;
+  color: rgb(117, 67, 235);
+  cursor: pointer;
+  transition: border-color 0.25s;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
