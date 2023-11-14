@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '../client';
-
+import { useNavigate } from 'react-router-dom';
 const EditReview = () => {
     const { id } = useParams();
     const [review, setReview] = useState(null);
@@ -64,30 +64,30 @@ const EditReview = () => {
             console.log("Post updated successfully");
         }
 
-        // Redirect to the main page
-        window.location = "/";
+        // Redirect to the main page using useNavigate
+        navigate("/");
     };
 
-    return(
+    return (
         <div className='createPage'>
             <form onSubmit={updateReview} className='reviewForm'>
                 <h2>Create Review</h2>
                 <label htmlFor='title' className='labelTxt'>Title</label>
                 <br />
-                <input type='text' className='additionalInputs' name='title' value={review.title} onChange={(e) => setReview({ ...review, title: e.target.value })} />
+                <input type='text' className='additionalInputs' name='title' value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
                 <br /><br />
                 <label htmlFor='content' className='labelTxt'>Content</label>
                 <br />
-                <textarea rows="10" cols="100" id='contentInput' name='content' value={review.content} onChange={(e) => setReview({ ...review, content: e.target.value })} />
+                <textarea rows="10" cols="100" id='contentInput' name='content' value={newContent} onChange={(e) => setNewContent(e.target.value)} />
                 <br /><br />
                 <label htmlFor='image_url' className='labelTxt'>Image URL</label><br />
-                <input className='additionalInputs' name='image_url' value={review.image_url} onChange={(e) => setReview({ ...review, image_url: e.target.value })} />
+                <input className='additionalInputs' name='image_url' value={newImageURL} onChange={(e) => setNewImageURL(e.target.value)} />
                 <br /><br />
                 <label htmlFor='flag' className='labelTxt'>Flag</label><br />
-                <input type='text' className='additionalInputs' name='flag' value={review.flag} onChange={(e) => setReview({ ...review, flag: e.target.value })} />
+                <input type='text' className='additionalInputs' name='flag' value={newFlag} onChange={(e) => setNewFlag(e.target.value )} />
                 <br /><br />
                 <label htmlFor='secret_key' className='labelTxt'>Secret Key</label><br />
-                <input type='number' className='additionalInputs' name='secret_key' value={review.secret_key} onChange={(e) => setReview({ ...review, secret_key: e.target.value })} />
+                <input type='number' className='additionalInputs' name='secret_key' value={newSecretKey} onChange={(e) => setNewSecretKey(e.target.value)} />
                 <br /><br />
                 <input type='submit' value='Create Review' className='formButton' />
             </form>

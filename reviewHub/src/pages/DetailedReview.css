@@ -42,6 +42,11 @@
     margin-top: 10px;
 }
 
+.detailedIcon:hover
+{
+    cursor: pointer;
+}
+
 .raveContainer
 {
     text-align: center;
