@@ -12,22 +12,30 @@ function App() {
 
   const [reviews, setReviews] = useState([]);
   const [userId, setUserId] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+
 
   useEffect(() => {
-    const newUserID = uuidv4();
-    setUserId(newUserID);
-    async function fetchReviews() {
-      const { data } = await supabase
-        .from('reviews')
-        .select()
-        .order('created_at', { ascending: true });
+    if (!userId) {
+      const newUserID = uuidv4();
+      setUserId(newUserID);
+      localStorage.setItem('userId', newUserID);
+    }
 
-      // Update the state of reviews
+    async function fetchReviews() {
+      let query = supabase.from('reviews').select().order('created_at', { ascending: true });
+
+      if (searchTerm.trim() !== '') {
+        query = query.ilike('title', `%${searchTerm.trim()}%`);
+      }
+
+      const { data } = await query;
+
       setReviews(data);
     }
 
     fetchReviews();
-  }, []);
+  }, [searchTerm]);
 
   const routes = useRoutes([
     {
@@ -36,7 +44,11 @@ function App() {
     },
     {
       path: '/new',
-      element: <CreateReview setReviews={setReviews} userId={userId}/>,
+      element: <CreateReview setReviews={setReviews} userId={userId} />,
+    },
+    {
+      path: '/edit/:id',
+      element: <EditReview data={reviews} />,
     },
     {
       path: '/',
@@ -48,12 +60,12 @@ function App() {
     <div className='reviewApp'>
       <div className='reviewApp-nav'>
         <h2 className='headerAssets'>ReviewHub</h2>
-        <Link to='/'  className='headerAssets'><h2>Home</h2></Link>
-        <input type='text' placeholder='Search' className='headerAssets' />
+        <Link to='/' className='headerAssets'><h2>Home</h2></Link>
+        <input type='text' placeholder='Search' className='headerAssets' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         <Link to='/new' className='headerAssets'><h2>Add Review</h2></Link>
         <h5 className='headerAssets'>Welcome User {userId}</h5>
-        </div>
-        {routes}
+      </div>
+      {routes}
     </div>
   )
 }

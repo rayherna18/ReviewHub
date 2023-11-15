@@ -89,7 +89,7 @@ const EditReview = () => {
                 <label htmlFor='secret_key' className='labelTxt'>Secret Key</label><br />
                 <input type='number' className='additionalInputs' name='secret_key' value={newSecretKey} onChange={(e) => setNewSecretKey(e.target.value)} />
                 <br /><br />
-                <input type='submit' value='Create Review' className='formButton' />
+                <input type='submit' value='Update Review' className='formButton' />
             </form>
         </div>
     )

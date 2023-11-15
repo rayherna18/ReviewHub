@@ -1,10 +1,14 @@
-#detailedImage
-{
-  width: 800px;
+#detailedImage {
   height: auto;
   border-radius: 20px;
-  
+  max-width: 60%;
+  width: 60%;
+  overflow: auto;
+  display: block; /* Ensure the image is treated as a block element */
+  margin-left: auto;
+  margin-right: auto;
 }
+
 
 
 #detailedTitle

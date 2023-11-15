@@ -17,6 +17,20 @@ function DetailedReview({ data, onUpdateReview }) {
 
   const review = data.find((review) => review.id === reviewId);
 
+  const deleteReview = async (e) => {
+    e.preventDefault();
+    try {
+        await supabase
+            .from('reviews')
+            .delete()
+            .eq('id', reviewId);
+    }
+    catch (error) {
+        console.error("Error deleting review: ", error);
+    }
+    window.location.href = "/";
+};
+
   const increaseUpvote = async () => {
     try {
         // Increment upvotes locally
@@ -99,7 +113,7 @@ function DetailedReview({ data, onUpdateReview }) {
               <FiEdit2 />
             </button>
           </Link>
-          <button className="alterButton">
+          <button className="alterButton" onClick={deleteReview}>
             <MdDelete />
           </button>
         </div>

@@ -4,15 +4,29 @@ import Block from '../components/Block';
 const ReadReviews = (props) => {
   const [reviews, setReviews] = useState([]);
   const [sortBy, setSortBy] = useState('date');
+  const [filteredReviews, setFilteredReviews] = useState([]);
 
   useEffect(() => {
     // Set reviews based on the current sorting option
+    let sortedReviews;
     if (sortBy === 'date') {
-      setReviews([...props.data].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
+      sortedReviews = [...props.data].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
     } else if (sortBy === 'upvotes') {
-      setReviews([...props.data].sort((a, b) => b.upvotes - a.upvotes));
+      sortedReviews = [...props.data].sort((a, b) => b.upvotes - a.upvotes);
+    } else {
+      // Default case: no sorting
+      sortedReviews = [...props.data];
     }
-  }, [props.data, sortBy]);
+
+    // Filter reviews based on the search term
+    const filtered = sortedReviews.filter((review) =>
+  (typeof props.searchTerm !== 'string' || props.searchTerm.trim() === '') ||
+  (review.title && typeof review.title === 'string' &&
+  review.title.toLowerCase().includes(props.searchTerm.toLowerCase()))
+);
+
+setFilteredReviews(filtered);
+  }, [props.data, sortBy, props.searchTerm]);
 
   const handleSortBy = (option) => {
     setSortBy(option);
@@ -29,10 +43,10 @@ const ReadReviews = (props) => {
           Upvotes
         </button>
       </div>
-      {reviews && reviews.length > 0 ? (
-        reviews.map((review) => (
+      {filteredReviews.length > 0 ? (
+        filteredReviews.map((review) => (
           <Block
-            key={review.secret_key} // Add a unique key using character.id
+            key={review.secret_key}
             id={review.id}
             created_at={review.created_at}
             title={review.title}
