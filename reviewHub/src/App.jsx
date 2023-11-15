@@ -55,10 +55,6 @@ function App() {
       path: '/',
       element: <ReadReviews data={reviews} />,
     },
-    {
-      path: '/secret/:id',
-      element: <SecretPage />,
-    }
   ]);
 
   return (
