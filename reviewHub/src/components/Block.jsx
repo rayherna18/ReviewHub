@@ -15,8 +15,8 @@ const Block = (props) => {
 
   return (
     <Link to={`/reviews/${props.id}`}  className='headerLink'><div className='block'>
-      <h3>Posted on {formattedDate}</h3>
-      <h2>{props.title}</h2>
+      <h5>Posted on {formattedDate}</h5>
+      <h2 className='postTitle'>{props.title}</h2>
       <p>Upvotes: {props.upvotes}</p>
     </div>
     </Link>

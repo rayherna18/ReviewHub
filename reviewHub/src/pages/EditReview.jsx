@@ -39,7 +39,9 @@ const EditReview = () => {
     }, [id]);
 
     if (!review) {
-        return <div>Loading...</div>;
+        return <div className='loadingScreen'>
+            <h2>Loading...</h2>
+            </div>;
     }
 
     const updateReview = async (event) => {
@@ -65,7 +67,7 @@ const EditReview = () => {
         }
 
         // Redirect to the main page using useNavigate
-        navigate("/");
+        window.location.href = "/";
     };
 
     return (

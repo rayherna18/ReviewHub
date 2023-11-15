@@ -5,8 +5,10 @@
     border: 1px solid #ccc;
     border-radius: 35px;
     padding: 10px;
-    margin: 10px;
-    width: 92%;
+    margin: 5px;
+    max-width: 86%;
+    width: 86%;
+    overflow: auto;
     height: auto;
     background-color: rgb(29, 29, 29);
 }

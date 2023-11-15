@@ -94,9 +94,8 @@ function DetailedReview({ data, onUpdateReview }) {
         </div>
       </div>
       <h2 id="detailedTitle">{review.title}</h2>
-      <h3>{reviewId}</h3>
       <p>{review.content}</p>
-      <img src={review.image_url} alt={review.title} id="detailedImage" />
+      {(review.image_url).length != 0 ? <img src={review.image_url} alt={review.title} id="detailedImage" /> : null}
       <div id="bottomRowDetailed">
         <div id='upvoteRow'>
         <img

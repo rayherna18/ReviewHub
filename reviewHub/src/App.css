@@ -4,7 +4,7 @@
   height: 30px;
   top: 0;
   left: 0;
-  background-color: rgb(47, 23, 136);
+  background-color: rgb(52, 21, 65);
   color: #1f1f1f;
 
   display: flex;
@@ -25,14 +25,24 @@
   align-items: center;
 
   margin-right: 20px;
-
+  color: #dfdfdf;
+  font-size: smaller;
 }
 
-h5.headerAssets, h2.headerAssets
+h5.headerAssets
 {
   color: #dfdfdf;
   margin: 0;
-  margin-left: 10px
+  margin-left: 10px;
+  font-size: .5em;
+}
+
+h2.headerAssets
+{
+  color: #dfdfdf;
+  margin: 0;
+  margin-left: 10px;
+  font-size: larger;
 }
 
 input.headerAssets
@@ -116,4 +126,12 @@ input.headerAssets
 .filterButton
 {
   margin-left: 20px;
+}
+
+#userIcon
+{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
