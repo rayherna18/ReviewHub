@@ -37,7 +37,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented features:
 
-<img src='ReviewHub/ReviewHub.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='reviewHub/ReviewHub.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [Licecap](https://www.cockos.com/licecap/) 
 
