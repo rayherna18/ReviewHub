@@ -8,7 +8,7 @@ const Comment = (props) => {
     return(
         <div id='commentContainer'>
             <FaUserCircle className='userIcon'  />
-            <p className='comment'>{props.content} - {props.user_id}</p>
+            <p className='comment'>{props.content} - User {props.user_id}</p>
         </div>
     );
 

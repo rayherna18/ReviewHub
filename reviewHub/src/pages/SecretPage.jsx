@@ -1,16 +1,32 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { useLocation, Link } from 'react-router-dom';
+import './SecretPage.css';
 const SecretPage = () => {
-    const [response, setResponse] = useState('');
-    
-    return(
-        <div>
-            <h2>Enter secrey key to edit review: </h2>
-            <input value={response}> </input>
-            <Link to='/'>Back to Home</Link>
-        </div>
-    );
-}
+  const location = useLocation();
+  const { state } = location;
+  const [response, setResponse] = useState('');
+  console.log(state);
+  const handleSecretInput = () => {
+    if (response == state.secretKey) {
+      window.location.href = `/edit/${state.reviewId}`;
+    } else {
+      window.location.href = "/";
+    }
+  };
+
+  return (
+    <div className='secretPage'>
+      <h2>Enter secret key to edit review: </h2>
+      <input
+        type="number"
+        value={response}
+        onChange={(e) => setResponse(e.target.value)}
+        id='secretInput'
+        placeholder='Enter secret key'
+      />
+      <button onClick={handleSecretInput} id='secretSubmit'>Submit</button>
+    </div>
+  );
+};
 
 export default SecretPage;

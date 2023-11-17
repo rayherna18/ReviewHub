@@ -6,14 +6,25 @@ import CommentSection from '../components/CommentSection';
 import { FiEdit2 } from 'react-icons/fi';
 import { MdDelete } from 'react-icons/md';
 import EditReview from './EditReview';
+import SecretPage from './SecretPage';
 
-function DetailedReview({ data, onUpdateReview }) {
+function DetailedReview({ data, onUpdateReview, userId }) {
   const { id } = useParams();
   const reviewId = parseInt(id);
   const [upvotes, setUpvotes] = useState(0);
   const [isRant, setIsRant] = useState(false);
 
   const navigate = useNavigate(); // Initialize the useNavigate hook
+
+  const handleEditClick = () => {
+    const state =
+    {
+      secretKey: review.secret_key,
+      reviewId: review.id,
+    }
+
+    navigate('/secret', { state });
+  };
 
   const review = data.find((review) => review.id === reviewId);
 
@@ -56,12 +67,12 @@ function DetailedReview({ data, onUpdateReview }) {
     
   };
 
-  const routes = useRoutes([
+  /* const routes = useRoutes([
     {
       path: '/edit/:id',
       element: <EditReview data={review} />,
     },
-  ]);
+  ]); */
 
   const formattedDate = new Date(review.created_at).toLocaleString('en-US', {
     year: 'numeric',
@@ -85,6 +96,8 @@ function DetailedReview({ data, onUpdateReview }) {
     return <h2>Review not found</h2>;
   }
 
+  //<Link to={`/edit/${reviewId}`}>
+
   return (
     <div className="detailedPage">
       <div id="topRowDetailed">
@@ -107,19 +120,16 @@ function DetailedReview({ data, onUpdateReview }) {
         <p id='upvoteTxt'>{upvotes}</p>
         </div>
         <div id="alterButtons">
-          <Link to={`/edit/${reviewId}`}>
-            <button className="alterButton">
+            <button className="alterButton" onClick={handleEditClick}>
               <FiEdit2 />
             </button>
-          </Link>
           <button className="alterButton" onClick={deleteReview}>
             <MdDelete />
           </button>
         </div>
       </div>
       <hr id="roundedDivider"></hr>
-      <CommentSection reviewId={reviewId} />
-      {routes}
+      <CommentSection reviewId={reviewId} userId={userId} />
     </div>
   );
 }

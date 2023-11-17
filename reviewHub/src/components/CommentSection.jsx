@@ -3,7 +3,7 @@ import { supabase } from '../client';
 import Comment from './Comment'; // Import the Comment component
 import './CommentSection.css';
 
-const CommentSection = ({ reviewId }) => {
+const CommentSection = ({ reviewId, userId }) => {
     const [comments, setComments] = useState([]);
     const [currentComment, setCurrentComment] = useState({
         content: '',
@@ -31,7 +31,7 @@ const CommentSection = ({ reviewId }) => {
             await supabase
                 .from('comments')
                 .insert([
-                    { content: currentComment.content, user_id: currentComment.user_id, related_post: reviewId },
+                    { content: currentComment.content, user_id: userId, related_post: reviewId },
                 ])
                 .select();
 

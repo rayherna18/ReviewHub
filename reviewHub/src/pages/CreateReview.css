@@ -1,0 +1,16 @@
+.flagToggle
+{
+    margin-left: 10px;
+}
+
+.flagToggle + label
+{
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+.flagToggle:checked + label
+{
+    font-weight: bold;
+    color: #dfdfdf;
+}
