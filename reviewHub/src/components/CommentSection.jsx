@@ -39,7 +39,7 @@ const CommentSection = ({ reviewId, userId }) => {
         } catch (error) {
             console.error("Error creating comment: ", error);
         }
-        window.location.href = `/reviews/${reviewId}`;
+        window.location.href = '/';
     };
 
     return (
