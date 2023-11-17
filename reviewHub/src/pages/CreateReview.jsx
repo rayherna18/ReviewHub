@@ -93,7 +93,7 @@ const CreateReview = ({ userId }) => {
                         name='flag'
                         value='Rave'
                         checked={review.flag === 'Rave'}
-                        onChange={() => setReview('Rave')}
+                        onChange={() => setReview({ ...review, flag: 'Rave' })}
                     />
                 </label>
                 <label>
@@ -104,7 +104,7 @@ const CreateReview = ({ userId }) => {
                         name='flag'
                         value='Rant'
                         checked={review.flag === 'Rant'}
-                        onChange={() => setReview('Rant')}
+                        onChange={() => setReview({ ...review, flag: 'Rant' })}
                     />
                 </label>
         <br />
