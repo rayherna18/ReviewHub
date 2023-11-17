@@ -54,7 +54,7 @@ function App() {
     },
     {
       path: '/edit/:id',
-      element: <EditReview data={reviews} />,
+      element: <EditReview/>,
     },
     {
       path: '/',

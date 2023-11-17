@@ -5,7 +5,7 @@ const SecretPage = () => {
   const location = useLocation();
   const { state } = location;
   const [response, setResponse] = useState('');
-  console.log(state);
+
   const handleSecretInput = () => {
     if (response == state.secretKey) {
       window.location.href = `/edit/${state.reviewId}`;
