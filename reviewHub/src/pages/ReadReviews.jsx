@@ -20,9 +20,10 @@ const ReadReviews = (props) => {
 
     // Filter reviews based on the search term
     const filtered = sortedReviews.filter((review) =>
-  (typeof props.searchTerm !== 'string' || props.searchTerm.trim() === '') ||
-  (review.title && typeof review.title === 'string' &&
-  review.title.toLowerCase().includes(props.searchTerm.toLowerCase()))
+  (typeof props.searchTerm !== 'string' || props.searchTerm.trim() === '' ||
+    (review.title && typeof review.title === 'string' &&
+      review.title.toLowerCase().includes(props.searchTerm.toLowerCase()))
+  )
 );
 
 setFilteredReviews(filtered);
@@ -44,18 +45,18 @@ setFilteredReviews(filtered);
         </button>
       </div>
       {filteredReviews.length > 0 ? (
-        filteredReviews.map((review) => (
-          <Block
-            key={review.secret_key}
-            id={review.id}
-            created_at={review.created_at}
-            title={review.title}
-            upvotes={review.upvotes}
-          />
-        ))
-      ) : (
-        <h2>{'No Reviews Yet!'}</h2>
-      )}
+  filteredReviews.map((review, index) => (
+    <Block
+      key={`${review.secret_key}-${index}`}  // Using both secret_key and index for uniqueness
+      id={review.id}
+      created_at={review.created_at}
+      title={review.title}
+      upvotes={review.upvotes}
+    />
+  ))
+) : (
+  <h2>{'No Reviews Yet!'}</h2>
+)}
     </div>
   );
 };

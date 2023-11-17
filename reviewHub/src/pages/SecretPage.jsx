@@ -6,10 +6,11 @@ const SecretPage = () => {
     
     return(
         <div>
+            <h2>Enter secrey key to edit review: </h2>
             <input value={response}> </input>
             <Link to='/'>Back to Home</Link>
         </div>
     );
 }
 
-export default 
+export default SecretPage;

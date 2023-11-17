@@ -33,9 +33,9 @@ const CreateReview = ({userId}) => {
         <div className='createPage'>
             <form onSubmit={createReview} className='reviewForm'>
                 <h2>Create Review</h2>
-                <label htmlFor='title' className='labelTxt'>Title</label>
+                <label htmlFor='title' className='labelTxt' >Title</label>
                 <br />
-                <input type='text' className='additionalInputs' name='title' value={review.title} onChange={(e) => setReview({ ...review, title: e.target.value })} />
+                <input type='text' className='additionalInputs' name='title' value={review.title} onChange={(e) => setReview({ ...review, title: e.target.value })} required />
                 <br /><br />
                 <label htmlFor='content' className='labelTxt'>Content</label>
                 <br />

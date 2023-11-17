@@ -74,9 +74,9 @@ const EditReview = () => {
         <div className='createPage'>
             <form onSubmit={updateReview} className='reviewForm'>
                 <h2>Create Review</h2>
-                <label htmlFor='title' className='labelTxt'>Title</label>
+                <label htmlFor='title' className='labelTxt' >Title</label>
                 <br />
-                <input type='text' className='additionalInputs' name='title' value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                <input type='text' className='additionalInputs' name='title' value={newTitle} onChange={(e) => setNewTitle(e.target.value)} required/>
                 <br /><br />
                 <label htmlFor='content' className='labelTxt'>Content</label>
                 <br />
