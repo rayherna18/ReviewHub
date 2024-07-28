@@ -9,8 +9,33 @@ import DetailedReview from './pages/DetailedReview';
 import SecretPage from './pages/SecretPage';
 import { FaUser } from 'react-icons/fa';
 import { nanoid } from 'nanoid';
-
+import {Route,createBrowserRouter, createRoutesFromElements, RouterProvider} from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
 function App() {
+
+
+  const addReview = async (review) => {
+
+
+  };
+
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path='/' element= { <MainLayout /> }>
+      <Route index element={<ReadReviews />} />
+      <Route path="/reviews/:id" element={<DetailedReview />} />
+      <Route path="/new" element={<CreateReview />} />
+      <Route path="/edit/:id" element={<EditReview />} />
+      <Route path="/secret" element={<SecretPage />} />
+      <Route path='*' element={ <NotFoundPage/> } />
+      </Route>
+    )
+  );
+
+  return <RouterProvider router={router} />;
+{/*}
+
   const [reviews, setReviews] = useState([]);
   const [userId, setUserId] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -89,7 +114,7 @@ function App() {
       </div>
       {routes}
     </div>
-  );
+  ); */}
 }
 
 export default App;
