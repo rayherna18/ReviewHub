@@ -24,6 +24,7 @@ function App() {
     createRoutesFromElements(
       <Route path='/' element= { <MainLayout /> }>
       <Route index element={<HomePage />} />
+      <Route path="/reviews" element={<ReadReviews/>} />
       <Route path="/reviews/:id" element={<DetailedReview />} />
       <Route path="/new" element={<CreateReview />} />
       <Route path="/edit/:id" element={<EditReview />} />

@@ -1,67 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import Block from '../components/Block';
+import ReviewFeed from '../components/ReviewFeed';
 
-const ReadReviews = (props) => {
-  const [reviews, setReviews] = useState([]);
-  const [sortBy, setSortBy] = useState('date');
-  const [filteredReviews, setFilteredReviews] = useState([]);
+const ReadReviews = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortBy, setSortBy] = useState('created_at');
 
-  useEffect(() => {
-    // Set reviews based on the current sorting option and filters
-    let sortedReviews;
-    if (sortBy === 'date') {
-      sortedReviews = [...props.data].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-    } else if (sortBy === 'upvotes') {
-      sortedReviews = [...props.data].sort((a, b) => b.upvotes - a.upvotes);
-    }
-    else {
-      // Default case: no sorting
-      sortedReviews = [...props.data];
-    }
-
-    // Filter reviews based on the search term
-    const filtered = sortedReviews.filter((review) =>
-      (typeof props.searchTerm !== 'string' || props.searchTerm.trim() === '' ||
-        (review.title && typeof review.title === 'string' &&
-          review.title.toLowerCase().includes(props.searchTerm.toLowerCase()))
-      )
-    );
-
-    setFilteredReviews(filtered);
-  }, [props.data, sortBy, props.searchTerm]);
-
-  const handleSortBy = (option) => {
-    setSortBy(option);
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
   };
 
+  const handleSortChange = (value) => {
+    setSortBy(value);
+  }
 
   return (
-    <div className='readPage'>
-      <div id='filterRow'>
-        <h2>Filter by</h2>
-        <button className='filterButton' onClick={() => handleSortBy('date')}>
-          Date
-        </button>
-        <button className='filterButton' onClick={() => handleSortBy('upvotes')}>
-          Upvotes
-        </button>
-      </div>
-      {filteredReviews.length > 0 ? (
-        filteredReviews.map((review, index) => (
-          <Block
-            key={`${review.secret_key}-${index}`}
-            id={review.id}
-            created_at={review.created_at}
-            title={review.title}
-            upvotes={review.upvotes}
-          />
-        ))
-      ) : (
-        <div id='reviewlessPage'> 
-          <h2>{'No Reviews Yet!'}</h2>
-          </div>
+    <div className='p-4'>
+      <div className='mb-4'>
+        <input
+          type="text"
+          placeholder="Search reviews..."
+          className="p-2 border rounded w-full"
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+        </div>
 
-      )}
+      <div className='mb-4 flex items-center space-x-4'>
+        <button className={`px-4 py-2 rounded ${sortBy === 'created_at' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} 
+        onClick={() => handleSortChange('upvotes')}>
+          Sort by Date
+        </button>
+
+        <button 
+        className={`px-4 py-2 rounded ${sortBy === 'upvotes' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} 
+        onClick={() => handleSortChange('upvotes')}>
+          Sort by Upvotes
+        </button>
+
+      </div>
+      <ReviewFeed searchTerm={searchTerm} sortBy={sortBy} />
     </div>
   );
 };
