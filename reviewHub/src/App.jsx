@@ -25,6 +25,8 @@ function App() {
       <Route path='/' element= { <MainLayout /> }>
       <Route index element={<HomePage />} />
       <Route path="/reviews" element={<ReadReviews/>} />
+      <Route path="/reviews/raves" element={<ReadReviews/>} />
+      <Route path="/reviews/rants" element={<ReadReviews/>} />
       <Route path="/reviews/:id" element={<DetailedReview />} />
       <Route path="/new" element={<CreateReview />} />
       <Route path="/edit/:id" element={<EditReview />} />

@@ -1,78 +1,95 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate, useRoutes } from 'react-router-dom'; // Import useNavigate
+import { useParams,useNavigate, } from 'react-router-dom'; // Import useNavigate
 import { supabase } from '../client';
-import './DetailedReview.css';
 import CommentSection from '../components/CommentSection';
 import { FiEdit2 } from 'react-icons/fi';
 import { MdDelete } from 'react-icons/md';
-import EditReview from './EditReview';
-import SecretPage from './SecretPage';
 
 function DetailedReview({ data, onUpdateReview, userId }) {
   const { id } = useParams();
   const reviewId = parseInt(id);
+  const [review, setReview] = useState(null);
   const [upvotes, setUpvotes] = useState(0);
   const [isRant, setIsRant] = useState(false);
 
-  const navigate = useNavigate(); // Initialize the useNavigate hook
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+
+    const foundReview = data.find((review) => review.id === reviewId);
+
+    if (foundReview) {
+      setReview(foundReview);
+      setUpvotes(foundReview.upvotes);
+      setIsRant(foundReview.flag.toLowerCase() === 'rant');
+    }
+    else {
+      const fetchReview = async () => {
+        const { data: fetchedReview, error } = await supabase
+        .from('reviews')
+        .select()
+        .eq('id', reviewId)
+        .single();
+
+        if (error) {
+          console.error('Error fetching review:', error);
+          return;
+        }
+
+        setReview(fetchedReview);
+        setUpvotes(fetchedReview.upvotes);
+        setIsRant(fetchedReview.flag.toLowerCase() === 'rant');
+      };
+      fetchReview();
+    }
+  }, [data, reviewId]);
 
   const handleEditClick = () => {
-    const state =
-    {
-      secretKey: review.secret_key,
-      reviewId: review.id,
-    }
-
-    navigate('/secret', { state });
+    navigate(`/edit/${reviewId}`, { state: { reviewId } });
   };
-
-  const review = data.find((review) => review.id === reviewId);
 
   const deleteReview = async (e) => {
     e.preventDefault();
+
     try {
-        await supabase
-            .from('reviews')
-            .delete()
-            .eq('id', reviewId);
+      await supabase
+        .from('reviews')
+        .delete()
+        .eq('id', reviewId);
+
+        navigate('/reviews');
+    } catch (error) {
+      console.error('Error deleting review:', error);
     }
-    catch (error) {
-        console.error("Error deleting review: ", error);
-    }
-    window.location.href = "/";
-};
+  };
 
   const increaseUpvote = async () => {
     try {
-        // Increment upvotes locally
-        setUpvotes((prevUpvotes) => prevUpvotes + 1);
-    
-        // Update upvotes in the Supabase database
-        const { data: updatedReview, error } = await supabase
-          .from('reviews')
-          .update({ upvotes: review.upvotes + 1 })
-          .eq('id', reviewId)
-          .single();
-    
-        if (error) {
-          console.error('Error updating upvotes in the database:', error);
-          return;
-        }
-    
-        // Notify the parent component to update the review data
-        onUpdateReview(reviewId);
-      } catch (error) {
-        console.error('Error updating upvotes:', error);
+      // Increment upvotes locally
+      setUpvotes((prevUpvotes) => prevUpvotes + 1);
+
+      // Update upvotes in the Supabase database
+      const { data: updatedReview, error } = await supabase
+        .from('reviews')
+        .update({ upvotes: review.upvotes + 1 })
+        .eq('id', reviewId)
+
+      if (error) {
+        console.error('Error updating upvotes in the database:', error);
+        return;
       }
-    
+
+      onUpdateReview(reviewId);
+
+    } catch (error) {
+      console.error('Error updating upvotes:', error);
+    }
   };
 
-  /* const routes = useRoutes([
-    {
-      path: '/edit/:id',
-      element: <EditReview data={review} />,
-    },
-  ]); */
+  if (!review) {
+    return <h2>Review not found</h2>;
+  }
 
   const formattedDate = new Date(review.created_at).toLocaleString('en-US', {
     year: 'numeric',
@@ -82,21 +99,6 @@ function DetailedReview({ data, onUpdateReview, userId }) {
     minute: '2-digit',
     second: '2-digit',
   });
-
-  useEffect(() => {
-    if (review) {
-      let flag = review.flag;
-      flag = flag.toLowerCase();
-      setIsRant(flag === 'rant');
-      setUpvotes(review.upvotes);
-    }
-  }, [review]);
-
-  if (!review) {
-    return <h2>Review not found</h2>;
-  }
-
-  //<Link to={`/edit/${reviewId}`}>
 
   return (
     <div className="detailedPage">

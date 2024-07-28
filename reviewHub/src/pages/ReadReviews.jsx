@@ -26,13 +26,13 @@ const ReadReviews = () => {
         </div>
 
       <div className='mb-4 flex items-center space-x-4'>
-        <button className={`px-4 py-2 rounded ${sortBy === 'created_at' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} 
+        <button className={`px-4 py-2 rounded ${sortBy === 'created_at' ? 'bg-slate-800 text-white' : 'bg-gray-200'}`} 
         onClick={() => handleSortChange('upvotes')}>
           Sort by Date
         </button>
 
         <button 
-        className={`px-4 py-2 rounded ${sortBy === 'upvotes' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} 
+        className={`px-4 py-2 rounded ${sortBy === 'upvotes' ? 'bg-slate-800 text-white' : 'bg-gray-200'}`} 
         onClick={() => handleSortChange('upvotes')}>
           Sort by Upvotes
         </button>

@@ -1,25 +1,36 @@
 import React, { useEffect, useState } from 'react'
 import Block from './Block'
+import { supabase } from '../client';
+import Spinner from './Spinner';
+
 const ReviewFeed = ({ searchTerm, sortBy}) => {
 
     const [reviews, setReviews] = useState([]);
     const [filteredReviews, setFilteredReviews] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
 
     // Fetches reviews from the database
     useEffect(() => {
 
         const fetchReviews = async () => {
-            let query = supabase.from('reviews').select().order(sortBy, { ascending: sortBy === 'created_at' });
-
-            if (searchTerm.trim() !== '') {
-                query = query.ilike('title', `%${searchTerm.trim()}%`);
+            try{
+                let query = supabase.from('reviews').select().order(sortBy, { ascending: sortBy === 'created_at' });
+                if (searchTerm.trim() !== '') {
+                    query = query.ilike('title', `%${searchTerm.trim()}%`);
+                }
+    
+                const { data } = await query;
+    
+                setReviews(data);
+            }
+            catch (error) {
+                console.log(error);
+            }
+            finally {
+                setIsLoading(false);
             }
 
-            const { data } = await query;
-
-            print(data);
-
-            setReviews(data);
         }
         fetchReviews();
     }, [searchTerm, sortBy]);
@@ -39,12 +50,15 @@ const ReviewFeed = ({ searchTerm, sortBy}) => {
         setFilteredReviews(filtered);
     }, [reviews, sortBy, searchTerm]);
 
-    return (
+    return ( 
+        isLoading ? (
+            <Spinner loading={isLoading}/>
+        ) :
         <div className='p-4'>
             {filteredReviews.length > 0 ? (
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+                <div className='grid grid-cols-1 gap-4'>
                     {filteredReviews.map((review) => (
-                        <Block key={review.id} review={review} />
+                        <Block review={review} />
                     ))}
                 </div>
 
