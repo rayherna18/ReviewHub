@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import { supabase } from '../client';
 
 const EditReview = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
-    const [review, setReview] = useState(null);
+    const [review, setReview] = useState();
 
     const [newTitle, setNewTitle] = useState('');
     const [newContent, setNewContent] = useState('');
@@ -69,95 +71,89 @@ const EditReview = () => {
         }
 
         // Redirect to the main page using useNavigate
-        window.location.href = "/";
+        navigate(`/reviews/${review.id}`);
     };
 
     return (
-        <div className='createPage'>
-            <form onSubmit={updateReview} className='reviewForm'>
-                <h2>Edit Review</h2>
-                <label htmlFor='title' className='labelTxt'>
+        <div className='p-8 max-w-4xl mx-auto'>
+            <form onSubmit={updateReview} className='space-y-6'>
+                <h2 className='text-2xl font-bold mb-4'>Edit Review</h2>
+                <label htmlFor='title' className="block text-lg font-medium text-gray-700">
                     Title
                 </label>
-                <br />
                 <input
                     type='text'
-                    className='additionalInputs'
+                    className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
                     name='title'
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)}
                     required
                 />
-                <br />
-                <br />
-                <label htmlFor='content' className='labelTxt'>
+                <label htmlFor='content' className="block text-lg font-medium text-gray-700">
                     Content
                 </label>
-                <br />
                 <textarea
                     rows='10'
                     cols='100'
-                    id='contentInput'
+                    className='mt-1 block w-full border border-gray-300 rounded-lg p-2'
                     name='content'
                     value={newContent}
                     onChange={(e) => setNewContent(e.target.value)}
                 />
-                <br />
-                <br />
-                <label htmlFor='image_url' className='labelTxt'>
+
+                <div>
+                <label htmlFor='image_url' className='block text-lg font-medium text-gray-700'>
                     Image URL
                 </label>
-                <br />
                 <input
-                    className='additionalInputs'
+                    className='mt-1 block w-full border border-gray-300 rounded-lg p-2'
                     name='image_url'
                     value={newImageURL}
                     onChange={(e) => setNewImageURL(e.target.value)}
                 />
-                <br />
-                <br />
-                <label htmlFor='flag' className='labelTxt'>
-                    Flag
-                </label>
-                <br />
-                <label>
-                    Rave
+                </div>
+
+                <div>
+                <label htmlFor='flag' className="block text-lg font-medium text-gray-700">Flag </label>
+                <div className='mt-2 flex space-x-4'>
+                <label className='inline-flex items-center'>
                     <input
                         type='radio'
-                        className='flagToggle'
+                        className='form-radio text-green-500'
                         name='flag'
                         value='Rave'
                         checked={newFlag === 'Rave'}
                         onChange={() => setNewFlag('Rave')}
                     />
+                    <span className='ml-2'>Rave</span>
                 </label>
                 <label>
-                    Rant
                     <input
                         type='radio'
-                        className='flagToggle'
+                        className='form-radio text-red-500'
                         name='flag'
                         value='Rant'
                         checked={newFlag === 'Rant'}
                         onChange={() => setNewFlag('Rant')}
                     />
+                    <span className='ml-2'>Rant</span>
                 </label>
-                <br />
-                <br />
-                <label htmlFor='secret_key' className='labelTxt'>
+                </div>
+                </div>
+
+                <label htmlFor='secret_key' className="block text-lg font-medium text-gray-700">
                     Secret Key
                 </label>
-                <br />
                 <input
                     type='number'
-                    className='additionalInputs'
+                    className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
                     name='secret_key'
                     value={newSecretKey}
                     onChange={(e) => setNewSecretKey(e.target.value)}
                 />
-                <br />
-                <br />
-                <input type='submit' value='Update Review' className='formButton' />
+                <button type='submit' className="w-full bg-slate-800 text-white py-2 px-4 rounded-lg hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    Update Review
+                </button>
             </form>
         </div>
     );

@@ -19,7 +19,7 @@ function DetailedReview() {
   const deleteReview = async (e) => {
     try{
       await supabase.from('reviews').delete().eq('id', review.id);
-      navigate('/');
+      navigate('/reviews');
     }
     catch (error) {
       console.error('Error deleting review:', error);

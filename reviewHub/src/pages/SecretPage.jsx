@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import './SecretPage.css';
+
 const SecretPage = () => {
   const location = useLocation();
   const { state } = location;

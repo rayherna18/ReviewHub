@@ -10,7 +10,7 @@ const ReviewFeed = ({ searchTerm, sortBy}) => {
     const [isLoading, setIsLoading] = useState(true);
 
 
-    // Fetches reviews from the database
+    // Fetches reviews from the database with search term (if applicable)
     useEffect(() => {
 
         const fetchReviews = async () => {

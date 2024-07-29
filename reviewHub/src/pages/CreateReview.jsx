@@ -87,7 +87,6 @@ const CreateReview = ({ userId }) => {
         <label htmlFor='flag' className="block text-lg font-medium text-gray-700">Flag</label>
               <div className='mt-2 flex space-x-4'>
                 <label className='inline-flex items-center'>
-                    Rave
                     <input
                         type='radio'
                         className='form-radio text-green-500'
@@ -96,36 +95,37 @@ const CreateReview = ({ userId }) => {
                         checked={review.flag === 'Rave'}
                         onChange={() => setReview({ ...review, flag: 'Rave' })}
                     />
+                    <span className='ml-2'>Rave</span>
                 </label>
                 <label>
-                    Rant
                     <input
                         type='radio'
-                        className='form-radio text-red-500'
                         name='flag'
                         value='Rant'
                         checked={review.flag === 'Rant'}
                         onChange={() => setReview({ ...review, flag: 'Rant' })}
+                        className='form-radio text-red-500'
                     />
+                    <span className='ml-2'>Rant</span>
                 </label>
                 </div>
             </div>
         
         <div>
-        <label htmlFor="secret_key" className="labelTxt">
+        <label htmlFor="secret_key" className="block text-lg font-medium text-gray-700">
           Secret Key
         </label>
         <input
           type="number"
-          className="additionalInputs"
+          className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
           name="secret_key"
           value={review.secret_key}
           onChange={(e) => setReview({ ...review, secret_key: e.target.value })}
         />
+        </div>
         <button type="submit" className="w-full bg-slate-800 text-white py-2 px-4 rounded-lg hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-green-500">
           Create Review
         </button>
-        </div>
       </form>
     </div>
   );

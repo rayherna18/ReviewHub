@@ -42,6 +42,7 @@ const CommentSection = ({ reviewId, userId }) => {
     return (
         <div className='flex flex-col space-y-4'>
             <div className='bg-gray-200 p-4 rounded-lg shadow-md space-y-3 '>
+                <h2 className='text-lg font-bold'>Comments</h2>
                 {comments && comments.length > 0 ? (
                     comments.map((comment) => (
                         <Comment
