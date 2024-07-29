@@ -4,8 +4,6 @@ Submitted by: **Raymond Hernandez**
 
 This web app: **A simple web app that allows users to make, edit, view and delete their reviews. Each review has many attributes that are stored in a database so data is carried over from session to session. Other users can interact with reviews with the comment section. Filtering and searching is enabled on the feed page.**
 
-Time spent: **18** hours spent in total
-
 ## Required Features
 
 The following **required** functionality is completed:
