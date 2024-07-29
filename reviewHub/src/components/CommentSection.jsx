@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../client';
-import Comment from './Comment'; // Import the Comment component
-import './CommentSection.css';
+import Comment from './Comment';
 
 const CommentSection = ({ reviewId, userId }) => {
     const [comments, setComments] = useState([]);
     const [currentComment, setCurrentComment] = useState({
         content: '',
-        user_id: '', // Consider updating this based on your authentication system
+        user_id: '', 
         related_post: null,
     });
 
