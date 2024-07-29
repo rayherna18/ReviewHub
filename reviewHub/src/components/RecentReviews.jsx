@@ -3,7 +3,7 @@ import ReviewPreview from './ReviewPreview'
 
 const RecentReviews = ({reviews}) => {
   return (
-    <div className='py-8'>
+    <div className='p-4 max-w-screen-lg mx-auto'>
         <h2 className='text-3xl font-bold text-slate-800 mb-4 text-center'>
             Recent Reviews
         </h2>

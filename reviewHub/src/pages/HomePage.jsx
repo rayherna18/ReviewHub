@@ -27,10 +27,10 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className='flex flex-col min-h-screen bg-white'>
     <Hero />
     <PortalCards />
-    <main className='flex justify-center'>
+    <main className='flex flex-1 justify-center items-center py-8 px-4'>
     <RecentReviews reviews={reviews}/>
     </main>
     </div>

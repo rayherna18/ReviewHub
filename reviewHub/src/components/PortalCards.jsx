@@ -4,11 +4,11 @@ import {Link} from 'react-router-dom';
 
 const PortalCards = () => {
   return (
-    <section className='p-10 bg-slate-200'>
+    <section className='p-10 bg-slate-100'>
 
       <div className='container-xl lg:container m-auto'>
 
-        <h2 className='text-3xl font-bold text-center text-slate-800'>Portal</h2>
+        <h2 className='text-3xl font-bold text-center text-slate-800'>Categories</h2>
 
         <div className='grid grid-cols-1 md:grid-cols-3 gap-10 p-4 rounded-lg'>
 
