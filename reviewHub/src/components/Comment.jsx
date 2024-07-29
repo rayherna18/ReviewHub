@@ -6,7 +6,7 @@ import { FaUserCircle } from "react-icons/fa";
 const Comment = (props) => {
 
     return(
-        <div className='py-5 flex flex-row space-x-5 border border-solid border-slate-800'>
+        <div className='py-5 flex flex-row space-x-5 rounded-md border border-transparent shadow-sm bg-white'>
             <FaUserCircle className='ml-5 w-10 h-10'  />
             <p className='my-auto'>{props.content} - User {props.user_id}</p>
         </div>

@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FiEdit2 } from 'react-icons/fi';
 import { MdDelete } from 'react-icons/md';
 import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { BiUpvote, BiSolidUpvote } from "react-icons/bi";
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 const ReviewContent = ({review, onEdit, onDelete, onUpvote}) => {
 
     const formattedDate = new Date(review.created_at).toLocaleString('en-US', {
@@ -13,6 +15,33 @@ const ReviewContent = ({review, onEdit, onDelete, onUpvote}) => {
         minute: '2-digit',
         second: '2-digit',
       });
+    const [upvoted, setUpvoted] = useState(false);
+    const [localUpvotes, setLocalUpvotes] = useState(review.upvotes);
+    const [animateBounce, setAnimateBounce] = useState(false);
+
+    const handleUpvote = () => {
+        if (!upvoted){
+            setUpvoted(true);
+            setLocalUpvotes(prevUpvotes => prevUpvotes + 1);
+            onUpvote();
+            setAnimateBounce(true);
+        }
+        else{
+            setUpvoted(false);
+            setLocalUpvotes(prevUpvotes => prevUpvotes - 1);
+        }
+    };
+
+    useEffect(() => {
+        if (animateBounce)
+        {
+            const timer = setTimeout(() => {
+                setAnimateBounce(false);
+            }, 1000);
+            return () => clearTimeout(timer);
+        }
+    }
+    , [animateBounce]);
 
   return (
     <>
@@ -32,12 +61,17 @@ const ReviewContent = ({review, onEdit, onDelete, onUpvote}) => {
       { review.image_url &&  <img src={review.image_url} alt={review.title} className="w-full h-auto mb-4" />}
       <div className='flex justify-between items-center mt-4'>
         <div className='flex items-center'>
-        <img
+            {
+                upvoted ? 
+                <BiSolidUpvote onClick={handleUpvote} size='35' color='#22c55e' className={`cursor-pointer ${animateBounce ? 'animate-bounce': ''}`}/> : 
+                <BiUpvote onClick={handleUpvote} size='35' color='#22c55e' className={`cursor-pointer ${animateBounce ? 'animate-bounce': ''}`}/>
+            }
+        {/*<img
           src="https://i.ibb.co/9qcxQZC/15-151233-dale-like-png-purple-like-button-png-removebg-preview.png"
           className="w-8 h-8 mr-2 cursor-pointer"
           alt="like"
           onClick={onUpvote}
-        />
+        /> */}
         <p className='ml-2'>{review.upvotes}</p>
         </div>
         <div className='flex space-x-2'>
