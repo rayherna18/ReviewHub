@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { supabase } from './client';
 import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import CreateReview from './pages/CreateReview';
@@ -7,10 +6,9 @@ import ReadReviews from './pages/ReadReviews';
 import EditReview from './pages/EditReview';
 import DetailedReview from './pages/DetailedReview';
 import SecretPage from './pages/SecretPage';
-import { FaUser } from 'react-icons/fa';
-import { nanoid } from 'nanoid';
 import {Route,createBrowserRouter, createRoutesFromElements, RouterProvider} from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
+import { reviewLoader } from './loaders/ReviewLoader';
 function App() {
 
 
@@ -27,7 +25,7 @@ function App() {
       <Route path="/reviews" element={<ReadReviews/>} />
       <Route path="/reviews/raves" element={<ReadReviews/>} />
       <Route path="/reviews/rants" element={<ReadReviews/>} />
-      <Route path="/reviews/:id" element={<DetailedReview />} />
+      <Route path="/reviews/:id" element={<DetailedReview />} loader={reviewLoader} />
       <Route path="/new" element={<CreateReview />} />
       <Route path="/edit/:id" element={<EditReview />} />
       <Route path="/secret" element={<SecretPage />} />
