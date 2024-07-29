@@ -58,7 +58,7 @@ const ReviewFeed = ({ searchTerm, sortBy}) => {
             {filteredReviews.length > 0 ? (
                 <div className='grid grid-cols-1 gap-4'>
                     {filteredReviews.map((review) => (
-                        <Block review={review} />
+                        <Block review={review} key={review.id} />
                     ))}
                 </div>
 
