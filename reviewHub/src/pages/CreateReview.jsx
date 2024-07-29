@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../client';
+import { toast } from 'react-toastify';
 
 const CreateReview = ({ userId }) => {
   const navigate = useNavigate();
@@ -35,6 +36,9 @@ const CreateReview = ({ userId }) => {
     } catch (error) {
       console.error('Error creating review: ', error);
     }
+
+    toast.success('Review Added Successfully!');
+
     navigate('/reviews');
   };
 

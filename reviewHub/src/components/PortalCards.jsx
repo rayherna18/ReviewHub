@@ -16,7 +16,7 @@ const PortalCards = () => {
           <Card bg='bg-green-500 text-white'  className='h-40'>
             <h2 className='text-xl font-bold'>VIEW</h2>
             <p className='text-4xl font-bold'>RAVES</p>
-            <p className='mt-2 font-semibold'>The Best Of The Best</p>
+            <p className='mt-2 font-semibold'>The Best Of The Best ✨</p>
           </Card>
         </Link>
 
@@ -24,7 +24,7 @@ const PortalCards = () => {
           <Card bg='bg-red-500 text-white'  className='h-40'>
           <h2 className='text-xl font-bold'>VIEW</h2>
           <p className='text-4xl font-bold'>RANTS</p>
-          <p className='mt-2 font-semibold'>In Need Of TLC</p>
+          <p className='mt-2 font-semibold'>In Need Of TLC 🗑️</p>
           </Card>
         </Link>
 

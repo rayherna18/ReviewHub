@@ -3,6 +3,7 @@ import {useNavigate, useLoaderData } from 'react-router-dom'; // Import useNavig
 import { supabase } from '../client';
 import CommentSection from '../components/CommentSection';
 import ReviewContent from '../components/ReviewContent';
+import { toast } from 'react-toastify';
 
 function DetailedReview() {
   const review = useLoaderData();
@@ -19,6 +20,8 @@ function DetailedReview() {
   const deleteReview = async (e) => {
     try{
       await supabase.from('reviews').delete().eq('id', review.id);
+
+      toast.success('Review Deleted Successfully!');
       navigate('/reviews');
     }
     catch (error) {

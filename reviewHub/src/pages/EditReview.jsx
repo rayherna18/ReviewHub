@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import { supabase } from '../client';
+import { toast } from 'react-toastify';
 
 const EditReview = () => {
     const navigate = useNavigate();
@@ -70,6 +71,7 @@ const EditReview = () => {
             console.log("Post updated successfully");
         }
 
+        toast.success('Review Updated Successfully!');
         // Redirect to the main page using useNavigate
         navigate(`/reviews/${review.id}`);
     };
