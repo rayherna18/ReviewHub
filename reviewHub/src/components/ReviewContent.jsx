@@ -5,6 +5,8 @@ import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { BiUpvote, BiSolidUpvote } from "react-icons/bi";
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { supabase } from '../client';
+
 const ReviewContent = ({review, onEdit, onDelete, onUpvote}) => {
 
     const formattedDate = new Date(review.created_at).toLocaleString('en-US', {
@@ -19,29 +21,98 @@ const ReviewContent = ({review, onEdit, onDelete, onUpvote}) => {
     const [localUpvotes, setLocalUpvotes] = useState(review.upvotes);
     const [animateBounce, setAnimateBounce] = useState(false);
 
-    const handleUpvote = () => {
-        if (!upvoted){
-            setUpvoted(true);
+    const handleUpvote = async () => {
+        try{
+            await supabase
+            .from('reviews')
+            .update({ upvotes: review.upvotes + 1 })
+            .eq('id', review.id);
             setLocalUpvotes(prevUpvotes => prevUpvotes + 1);
-            onUpvote();
             setAnimateBounce(true);
         }
-        else{
-            setUpvoted(false);
-            setLocalUpvotes(prevUpvotes => prevUpvotes - 1);
+        catch (error) {
+            console.error('Error updating upvote:', error);
         }
     };
 
-    useEffect(() => {
-        if (animateBounce)
-        {
-            const timer = setTimeout(() => {
-                setAnimateBounce(false);
-            }, 1000);
-            return () => clearTimeout(timer);
+    // Needs authenticated users to work
+    {/* useEffect(() => {
+    const checkUpVoteStatus = async () => {
+        try{
+            const { data: {user}, error: userError } = await supabase.auth.getUser();
+
+            if (userError) {
+                throw userError;
+            }
+
+            if (!user) return;
+        
+        
+        const { data: upvote, error } = await supabase
+            .from('user_upvotes')
+            .select()
+            .eq('review_id', review.id)
+            .eq('user_id', user.id)
+            .single();
+
+            if (error) throw error;
+
+           setUpvoted(!!upvote);
+        } catch (error) {
+            console.error('Error checking upvote status:', error);
         }
-    }
-    , [animateBounce]);
+    };
+    checkUpVoteStatus();
+    }, [review.id]);
+
+
+    const handleUpvote = async () => {
+            try {
+                // Fetch current user
+                const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+                if (userError) {
+                    throw userError;
+                }
+
+                if (!user) {
+                    console.error('User is not authenticated');
+                    return;
+                }
+
+                const newUpvoteStatus = !upvoted;
+                const upvotechange = newUpvoteStatus ? 1 : -1;
+
+                // Check if the user has already upvoted this review
+                await supabase
+                .from('reviews')
+                .update({ upvotes: review.upvotes + upvotechange })
+                .eq('id', review.id);
+
+                if(newUpvoteStatus){
+                    await supabase.from('user_upvotes').insert([{ review_id: review.id, user_id: user.id }]);
+                }
+                else{
+                    await supabase.from('user_upvotes').delete().eq('review_id', review.id).eq('user_id', user.id);
+                }
+
+                setLocalUpvotes(prevUpvotes => prevUpvotes + upvotechange);
+                setUpvoted(newUpvoteStatus);
+                setAnimateBounce(true);
+            }
+            catch (error) {
+                console.error('Error upvoting review:', error);
+            }
+        }; */}
+
+    useEffect(() => {
+        if (animateBounce) {
+          const timer = setTimeout(() => {
+            setAnimateBounce(false);
+          }, 1000);
+          return () => clearTimeout(timer);
+        }
+      }, [animateBounce]);
 
   return (
     <>
@@ -72,7 +143,7 @@ const ReviewContent = ({review, onEdit, onDelete, onUpvote}) => {
           alt="like"
           onClick={onUpvote}
         /> */}
-        <p className='ml-2'>{review.upvotes}</p>
+        <p className='ml-2'>{localUpvotes}</p>
         </div>
         <div className='flex space-x-2'>
             <button className="p-2 bg-gray-200 rounded hover:bg-gray-300" onClick={onEdit}>
