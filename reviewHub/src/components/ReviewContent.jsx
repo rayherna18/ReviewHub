@@ -1,7 +1,8 @@
 import React from 'react'
 import { FiEdit2 } from 'react-icons/fi';
 import { MdDelete } from 'react-icons/md';
-
+import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 const ReviewContent = ({review, onEdit, onDelete, onUpvote}) => {
 
     const formattedDate = new Date(review.created_at).toLocaleString('en-US', {
@@ -16,8 +17,13 @@ const ReviewContent = ({review, onEdit, onDelete, onUpvote}) => {
   return (
     <>
      <div className="flex justify-between items-center mb-4">
-        <h6 className='text-gray-500'>Posted on {formattedDate}</h6>
-        <div className={`${review.flag.toLowerCase() === 'rant' ? 'bg-red-500': 'bg-green-500'} text-white px-2 py-1 rounded`}>
+        <h6 className='text-gray-500 flex flex-rows'>
+            <Link to='/reviews' className='text-green-500'>
+            <FaArrowAltCircleLeft size='35' color='202c3c'/>
+            </Link>
+            <div className='my-auto ml-2'>Posted on {formattedDate} </div>
+        </h6>
+        <div className={`${review.flag.toLowerCase() === 'rant' ? 'bg-red-500': 'bg-green-500'} text-white px-4 py-2 rounded`}>
           <p>{review.flag}</p>
         </div>
       </div>

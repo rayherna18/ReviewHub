@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import CreateReview from './pages/CreateReview';
@@ -9,6 +8,7 @@ import SecretPage from './pages/SecretPage';
 import {Route,createBrowserRouter, createRoutesFromElements, RouterProvider} from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import { reviewLoader } from './loaders/ReviewLoader';
+
 function App() {
 
 
@@ -21,7 +21,7 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element= { <MainLayout /> }>
-      <Route index element={<HomePage />} />
+      <Route index element={<HomePage />}/>
       <Route path="/reviews" element={<ReadReviews/>} />
       <Route path="/reviews/raves" element={<ReadReviews/>} />
       <Route path="/reviews/rants" element={<ReadReviews/>} />
@@ -34,7 +34,9 @@ function App() {
     )
   );
 
-  return <RouterProvider router={router} />;
+  return (
+      <RouterProvider router={router} />
+);
 {/*}
 
   const [reviews, setReviews] = useState([]);

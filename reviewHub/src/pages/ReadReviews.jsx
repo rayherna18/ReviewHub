@@ -27,7 +27,7 @@ const ReadReviews = () => {
 
       <div className='mb-4 flex items-center space-x-4'>
         <button className={`px-4 py-2 rounded ${sortBy === 'created_at' ? 'bg-slate-800 text-white' : 'bg-gray-200'}`} 
-        onClick={() => handleSortChange('upvotes')}>
+        onClick={() => handleSortChange('created_at')}>
           Sort by Date
         </button>
 

@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 const FooterBlock = () => {
   return (
-    <div className='bg-gray-200 h-128 flex flex-row content-evenly gap-10'>
+    <div className='bg-slate-300'>
+      <div className='mt-20 container flex justify-center space-x-40 mx-auto h-40 font-bold'>
       <Link>
       ABOUT US
       </Link>
@@ -23,6 +24,7 @@ const FooterBlock = () => {
       <Link>
       PRIVACY POLICY
       </Link>
+      </div>
     </div>
   )
 }

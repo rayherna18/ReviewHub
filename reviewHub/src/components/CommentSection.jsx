@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../client';
+import { useNavigate } from 'react-router-dom';
 import Comment from './Comment';
 
 const CommentSection = ({ reviewId, userId }) => {
